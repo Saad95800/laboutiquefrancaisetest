@@ -1,2 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 @import "../css/carousel.scss";
+
+.navbar-item-custom, .navbar-item-custom a {
+    color: #fff;
+}
+
+.footer-custom{
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: #dfeaff;
+    padding-top: 25px;
+}

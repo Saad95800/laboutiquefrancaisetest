@@ -23,6 +23,9 @@ class AccountPasswordController extends AbstractController
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
 
+        $notification = null;
+        $type_notif = "";
+
         $user = $this->getuser();
         $form = $this->createForm(ChangePasswordType::class, $user);
 
@@ -41,14 +44,20 @@ class AccountPasswordController extends AbstractController
                 $user->setPassword($hashedPassword);
                 // Pas besoin d'utiliser le methode persist puisque l'objet user est déjà géré par doctrine
                 $this->entityManager->flush($user);
-
+                $notification = "Votre mot de passe a bien été mis à jour";
+                $type_notif = "alert-info";
+            }else{
+                $notification = "Votre mot de passe actuel saisi n'est pas correct";
+                $type_notif = "alert-danger";
             }
 
 
         }
 
         return $this->render('account/password.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'notification' => $notification,
+            'type_notif' => $type_notif
         ]);
     }
 }
