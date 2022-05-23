@@ -8,8 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -24,7 +24,11 @@ class ProductCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
-            ImageField::new('illustration')->setUploadDir('public/uploads'),
+            ImageField::new('illustration')
+            ->setBasePath('uploads')
+            ->setUploadDir('public/uploads')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setRequired(false),
             TextField::new('subtitle'),
             TextareaField::new('description'),
             MoneyField::new('price')->setCurrency('EUR'),
